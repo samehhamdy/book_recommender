@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: BookRecommender
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://recommender.test'
+paths:
+  /api/new-read-interval:
+    post:
+      summary: 'submit a user reading interval'
+      operationId: submitAUserReadingInterval
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: 'The id of the user.'
+                  example: 1
+                book_id:
+                  type: integer
+                  description: 'The id of the book.'
+                  example: 1
+                start_page:
+                  type: integer
+                  description: 'The start page of the interval.'
+                  example: 1
+                end_page:
+                  type: integer
+                  description: 'The end page of the interval.'
+                  example: 10
+              required:
+                - user_id
+                - book_id
+                - start_page
+                - end_page
+      security: []
+  /api/recommended-books:
+    get:
+      summary: 'Calculate the most recommended five books'
+      operationId: calculateTheMostRecommendedFiveBooks
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    book_id: 1
+                    book_name: 'Aut minima.'
+                    num_of_read_pages: '28'
+                  -
+                    book_id: 2
+                    book_name: 'Amet voluptatem nostrum voluptate.'
+                    num_of_read_pages: '20'
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
