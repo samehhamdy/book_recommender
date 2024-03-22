@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Notifications\ReadingIntervalNotification;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class SubmitBookUserIntervalTest extends TestCase
@@ -45,6 +47,7 @@ class SubmitBookUserIntervalTest extends TestCase
 
     public function test_interval_creation_successful_notification()
     {
+        Notification::fake();
         $user = User::first();
         $payload = [
             'user_id' => $user->id,
@@ -55,5 +58,8 @@ class SubmitBookUserIntervalTest extends TestCase
         $response = $this->postJson('/api/new-read-interval', $payload);
         $response->assertStatus(200)
             ->assertJson(['message' => 'Interval created successfully.']);
+        Notification::assertSentTo([$user], ReadingIntervalNotification::class);
+        Notification::assertCount(1);
     }
+
 }
