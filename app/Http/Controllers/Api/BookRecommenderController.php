@@ -20,7 +20,7 @@ class BookRecommenderController extends Controller
      */
     public function __invoke()
     {
-        $recommendedBooks = Book::ofTopRecommended(auth()->id())->limit(5)->get();
+        $recommendedBooks = Book::ofTopRecommended()->limit(5)->get();
         return response()->json($recommendedBooks);
     }
 }

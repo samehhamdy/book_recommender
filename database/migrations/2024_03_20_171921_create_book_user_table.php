@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('book_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->nullable()->constrained()->cascadeOnDelete();
             $table->integer('start_page')->nullable();
             $table->integer('end_page')->nullable();
             $table->timestamps();
